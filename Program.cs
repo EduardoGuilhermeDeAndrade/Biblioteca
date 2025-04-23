@@ -1,8 +1,16 @@
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using BibliotecaCleanArch.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// REGISTRO DO DbContext - ESSENCIAL para migrations e uso em tempo de execução
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+// Adiciona controllers
 builder.Services.AddControllers();
 
 // Configuração do Swagger
@@ -16,7 +24,7 @@ builder.Services.AddSwaggerGen(c =>
         Contact = new OpenApiContact { Name = "Seu Nome", Email = "seu@email.com" }
     });
 
-    // Adicionar segurança JWT (opcional, se já tiver autenticação)
+    // Segurança JWT (opcional)
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
@@ -44,7 +52,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Ativar o Swagger em desenvolvimento
+// Middleware do Swagger (só em dev)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -56,5 +64,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();
