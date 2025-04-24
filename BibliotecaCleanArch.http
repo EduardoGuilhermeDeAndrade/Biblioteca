@@ -1,6 +1,46 @@
 @BibliotecaCleanArch_HostAddress = http://localhost:5173
 
-GET {{BibliotecaCleanArch_HostAddress}}/weatherforecast/
+### GET - Buscar todos os livros
+GET {{BibliotecaCleanArch_HostAddress}}/api/livros
+Accept: application/json
+
+###
+
+### GET - Buscar livro por ID
+GET {{BibliotecaCleanArch_HostAddress}}/api/livros/1
+Accept: application/json
+
+###
+
+### POST - Criar novo livro
+POST {{BibliotecaCleanArch_HostAddress}}/api/livros
+Content-Type: application/json
+Accept: application/json
+
+{
+  "titulo": "A Metamorfose",
+  "autor": "Franz Kafka",
+  "anoPublicacao": 1915
+}
+
+###
+
+### PUT - Atualizar livro existente
+PUT {{BibliotecaCleanArch_HostAddress}}/api/livros/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 1,
+  "titulo": "A Metamorfose (Edição Revisada)",
+  "autor": "Franz Kafka",
+  "anoPublicacao": 1915
+}
+
+###
+
+### DELETE - Remover livro por ID
+DELETE {{BibliotecaCleanArch_HostAddress}}/api/livros/1
 Accept: application/json
 
 ###

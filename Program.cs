@@ -16,6 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ILivroRepository, LivroRepository>();
 builder.Services.AddScoped<LivroService>();
 
+builder.Services.AddOpenApi();
+
 // Adiciona controllers
 builder.Services.AddControllers();
 

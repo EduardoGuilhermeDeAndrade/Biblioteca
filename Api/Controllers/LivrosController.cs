@@ -5,9 +5,6 @@ using System.Net.Mime;
 
 namespace BibliotecaCleanArch.Api.Controllers;
 
-/// <summary>
-/// Controller para gerenciamento de livros
-/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
@@ -21,10 +18,6 @@ public class LivrosController : ControllerBase
         _livroService = livroService;
     }
 
-    /// <summary>
-    /// Obtém todos os livros
-    /// </summary>
-    /// <response code="200">Retorna a lista de livros</response>
     [HttpGet]
     [ProducesResponseType(typeof(List<Livro>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll()
@@ -33,12 +26,6 @@ public class LivrosController : ControllerBase
         return Ok(livros);
     }
 
-    /// <summary>
-    /// Obtém um livro específico pelo ID
-    /// </summary>
-    /// <param name="id">ID do livro</param>
-    /// <response code="200">Livro encontrado</response>
-    /// <response code="404">Livro não encontrado</response>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(Livro), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -55,12 +42,6 @@ public class LivrosController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Adiciona um novo livro
-    /// </summary>
-    /// <param name="livro">Dados do livro</param>
-    /// <response code="201">Livro criado com sucesso</response>
-    /// <response code="400">Dados inválidos</response>
     [HttpPost]
     [ProducesResponseType(typeof(Livro), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -81,14 +62,6 @@ public class LivrosController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Atualiza um livro existente
-    /// </summary>
-    /// <param name="id">ID do livro</param>
-    /// <param name="livro">Dados atualizados do livro</param>
-    /// <response code="204">Livro atualizado com sucesso</response>
-    /// <response code="400">Dados inválidos</response>
-    /// <response code="404">Livro não encontrado</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -115,12 +88,6 @@ public class LivrosController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Remove um livro
-    /// </summary>
-    /// <param name="id">ID do livro</param>
-    /// <response code="204">Livro removido com sucesso</response>
-    /// <response code="404">Livro não encontrado</response>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
