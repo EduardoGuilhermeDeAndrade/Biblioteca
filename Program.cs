@@ -1,6 +1,8 @@
-using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
+using BibliotecaCleanArch.Application.Services;
 using BibliotecaCleanArch.Infrastructure.Data;
+using BibliotecaCleanArch.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// Registrar Repositórios e Serviços
+builder.Services.AddScoped<ILivroRepository, LivroRepository>();
+builder.Services.AddScoped<LivroService>();
 
 // Adiciona controllers
 builder.Services.AddControllers();
